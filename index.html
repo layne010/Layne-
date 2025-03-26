@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>经典游戏合集 - Layne的游戏工坊</title>
+    <style>
+        :root {
+            --primary-color: #2a2a2a;
+            --accent-color: #ff4757;
+            --text-color: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a1a, #2d3436);
+            color: var(--text-color);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #ff4757);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s var(--transition-timing), 
+                        box-shadow 0.3s var(--transition-timing);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            will-change: transform;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-image {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 贪食蛇 */
+        #snake-preview {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+        }
+        #snake-preview::before {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 20px;
+            background: 
+                linear-gradient(to right,
+                    #2ecc71 0 20px,
+                    #27ae60 20px 40px,
+                    #2ecc71 40px 60px,
+                    #27ae60 60px 80px,
+                    #2ecc71 80px 100px);
+            animation: snakeMove 1s linear infinite;
+        }
+        #snake-preview::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #e74c3c;
+            border-radius: 4px;
+            left: calc(50% + 40px);
+            animation: foodBlink 1s infinite;
+        }
+        @keyframes snakeMove {
+            0% { transform: translateX(-20px); }
+            100% { transform: translateX(20px); }
+        }
+        @keyframes foodBlink {
+            50% { transform: scale(1.2); }
+        }
+
+        /* 打砖块 */
+        #brick-preview {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+        }
+        #brick-preview::before {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 80px;
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    rgba(0,0,0,0.1),
+                    rgba(0,0,0,0.1) 10px,
+                    transparent 10px,
+                    transparent 20px
+                ),
+                linear-gradient(
+                    to bottom,
+                    #e74c3c 0 20px,
+                    #f1c40f 20px 40px,
+                    #3498db 40px 60px,
+                    #2ecc71 60px 80px
+                );
+            border-radius: 6px;
+            box-shadow: 
+                0 4px 12px rgba(0,0,0,0.3),
+                inset 0 0 8px rgba(255,255,255,0.2);
+            animation: bricksShine 2s ease-in-out infinite;
+        }
+        @keyframes bricksShine {
+            50% { opacity: 0.9; box-shadow: 0 6px 15px rgba(0,0,0,0.4); }
+        }
+
+        /* 俄罗斯方块 - 保留渐变+新增田格 */
+        #tetris-preview {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+        }
+        #tetris-preview::before {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: 
+                repeating-linear-gradient(#fff 0 1px, transparent 1px 20px),
+                repeating-linear-gradient(90deg, #fff 0 1px, transparent 1px 20px);
+            opacity: 0.15;
+            animation: tetrisGrid 8s linear infinite;
+        }
+        #tetris-preview::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: 
+                linear-gradient(45deg, 
+                    transparent 45%,
+                    #fff 45% 55%,
+                    transparent 55%),
+                linear-gradient(-45deg, 
+                    transparent 45%,
+                    #fff 45% 55%,
+                    transparent 55%);
+            animation: tetrisRotate 4s linear infinite;
+            opacity: 0.3;
+        }
+        @keyframes tetrisGrid {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        @keyframes tetrisRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-720deg); }
+        }
+
+        /* 井字棋 */
+        #tic-tac-preview {
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+        }
+        #tic-tac-preview::before {
+            content: '×○';
+            position: absolute;
+            font-size: 3rem;
+            letter-spacing: 1rem;
+            color: rgba(255,255,255,0.9);
+            text-shadow: 0 0 15px rgba(255,255,255,0.3);
+            animation: ticTacPulse 1.5s ease-in-out infinite;
+        }
+        @keyframes ticTacPulse {
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .game-content {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .game-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-color);
+            min-height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .game-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            min-height: 4.5rem;
+        }
+
+        .game-link {
+            display: inline-flex;
+            padding: 0.8rem 2rem;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: transform 0.2s var(--transition-timing), 
+                        background-color 0.2s var(--transition-timing);
+            margin-top: 1rem;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .game-link:hover,
+        .game-link:focus {
+            transform: scale(1.05);
+            background-color: #ff3342;
+            outline: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .game-description {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .game-title {
+                font-size: 1.2rem;
+            }
+            .game-link {
+                width: 100%;
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>经典游戏合集</h1>
+            <p>点击游戏卡片开始经典怀旧之旅</p>
+        </header>
+
+        <div class="games-grid">
+            <!-- 贪食蛇 -->
+            <article class="game-card">
+                <div class="game-image" id="snake-preview"></div>
+                <div class="game-content">
+                    <h3 class="game-title">贪食蛇</h3>
+                    <p class="game-description">操控小蛇吃食物，注意不要撞到自己！</p>
+                    <a href="https://layne010.github.io/snake-game/" 
+                       target="_blank" 
+                       class="game-link"
+                       rel="noopener noreferrer">
+                       🎮 开始游戏
+                    </a>
+                </div>
+            </article>
+
+            <!-- 打砖块 -->
+            <article class="game-card">
+                <div class="game-image" id="brick-preview"></div>
+                <div class="game-content">
+                    <h3 class="game-title">打砖块</h3>
+                    <p class="game-description">弹球击碎所有砖块，挑战最高分！</p>
+                    <a href="https://layne010.github.io/Brick-fighting-game/" 
+                       target="_blank" 
+                       class="game-link"
+                       rel="noopener noreferrer">
+                       🎯 开始游戏
+                    </a>
+                </div>
+            </article>
+
+            <!-- 俄罗斯方块 -->
+            <article class="game-card">
+                <div class="game-image" id="tetris-preview"></div>
+                <div class="game-content">
+                    <h3 class="game-title">俄罗斯方块</h3>
+                    <p class="game-description">排列组合各种方块，挑战极限！</p>
+                    <a href="https://layne010.github.io/tetris/" 
+                       target="_blank" 
+                       class="game-link"
+                       rel="noopener noreferrer">
+                       🧊 开始游戏
+                    </a>
+                </div>
+            </article>
+
+            <!-- 井字棋 -->
+            <article class="game-card">
+                <div class="game-image" id="tic-tac-preview"></div>
+                <div class="game-content">
+                    <h3 class="game-title">井字棋</h3>
+                    <p class="game-description">经典三连棋游戏，与AI一决高下！</p>
+                    <a href="https://layne010.github.io/tic-tac-toe/" 
+                       target="_blank" 
+                       class="game-link"
+                       rel="noopener noreferrer">
+                       ❌⭕️ 开始游戏
+                    </a>
+                </div>
+            </article>
+        </div>
+    </div>
+</body>
+</html>
