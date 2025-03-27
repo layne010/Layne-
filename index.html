@@ -84,7 +84,7 @@
 
         /* 贪食蛇 */
         #snake-preview {
-            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            background: linear-gradient(45deg, #66d896, #04c153);
         }
         #snake-preview::before {
             content: '';
@@ -113,7 +113,7 @@
 
         /* 打砖块 */
         #brick-preview {
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            background: linear-gradient(45deg, #ca6e64, #f11c04);
         }
         #brick-preview::before {
             content: '';
@@ -144,7 +144,7 @@
 
         /* 俄罗斯方块 - 修正版 */
         #tetris-preview {
-            background: linear-gradient(45deg, #3498db, #2980b9);
+            background: linear-gradient(45deg, #5caee5, #1490e3);
         }
         #tetris-preview::before {
             content: '';
@@ -170,7 +170,7 @@
 
         /* 井字棋 */
         #tic-tac-preview {
-            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+            background: linear-gradient(45deg, #c58bdc, #a31edc);
         }
         #tic-tac-preview::before {
             content: '×○';
@@ -180,6 +180,42 @@
             color: rgba(255,255,255,0.9);
             text-shadow: 0 0 15px rgba(255,255,255,0.3);
             animation: ticTacPulse 1.5s ease-in-out infinite;
+        }
+
+        /* 密码机新增样式 */
+        #crypto-preview {
+            background: linear-gradient(45deg, #59b6a5, #348362);
+        }
+        #crypto-preview::before {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent 0,
+                    transparent 15px,
+                    rgba(255,255,255,0.1) 15px,
+                    rgba(255,255,255,0.1) 30px
+                ),
+                linear-gradient(
+                    135deg,
+                    #9b59b6 0 25%,
+                    #6c3483 25% 50%,
+                    #9b59b6 50% 75%,
+                    #6c3483 75% 100%
+                );
+            border-radius: 8px;
+            box-shadow: 
+                0 0 15px rgba(0,0,0,0.4),
+                inset 0 0 10px rgba(255,255,255,0.1);
+            animation: cryptoSpin 3s linear infinite;
+        }
+
+        @keyframes cryptoSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         /* 反馈表单样式 */
@@ -413,6 +449,21 @@
                        class="game-link"
                        rel="noopener noreferrer">
                        ❌⭕️ 开始游戏
+                    </a>
+                </div>
+            </article>
+
+            <!-- 新增密码机游戏 -->
+            <article class="game-card">
+                <div class="game-image" id="crypto-preview"></div>
+                <div class="game-content">
+                    <h3 class="game-title">密码机</h3>
+                    <p class="game-description">破解复杂密码，挑战你的逻辑与观察力！</p>
+                    <a href="https://layne010.github.io/-/" 
+                       target="_blank" 
+                       class="game-link"
+                       rel="noopener noreferrer">
+                       🔒 开始游戏
                     </a>
                 </div>
             </article>
